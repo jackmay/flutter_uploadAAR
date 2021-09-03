@@ -63,7 +63,9 @@ Future<void> writeRemoteMvnAddress() async {
       contents = contents
           .replaceFirst(
               "project.version = project.version.replace(\"-SNAPSHOT\", \"\")",
-              "project.version = project.version + \"-SNAPSHOT\"")
+               "if (!project.version.contains(\"-SNAPSHOT\")) {\n" +
+                  "        project.version = project.version + \"-SNAPSHOT\"\n" +
+                  "    }")
           .replaceFirst(
               "  if (project.hasProperty(\"buildNumber\")) {\n" +
                   "        project.version = project.property(\"buildNumber\")\n" +
